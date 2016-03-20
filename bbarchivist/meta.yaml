@@ -1,0 +1,103 @@
+package:
+  name: bbarchivist
+  version: "2.4.1"
+
+source:
+  fn: bbarchivist-2.4.1.zip
+  url: https://pypi.python.org/packages/source/b/bbarchivist/bbarchivist-2.4.1.zip
+  md5: 7d6316d51df433f36c7924e4eb75322e
+#  patches:
+   # List any patch files here
+   # - fix.patch
+
+build:
+  # noarch_python: True
+  # preserve_egg_dir: True
+  entry_points:
+    # Put any entry points (scripts to be generated automatically) here. The
+    # syntax is module:function.  For example
+    #
+    # - bbarchivist = bbarchivist:main
+    #
+    # Would create an entry point called bbarchivist that calls bbarchivist.main()
+
+    - bb-archivist=bbarchivist.scripts.archivist:grab_args
+    - bb-lazyloader=bbarchivist.scripts.lazyloader:grab_args
+    - bb-cchecker=bbarchivist.scripts.carrierchecker:grab_args
+    - bb-certchecker=bbarchivist.scripts.certchecker:grab_args
+    - bb-filehasher=bbarchivist.scripts.filehasher:filehasher_main
+    - bb-escreens=bbarchivist.scripts.escreens:escreens_main
+    - bb-linkgen=bbarchivist.scripts.linkgen:grab_args
+    - bb-gpgrunner=bbarchivist.scripts.gpgrunner:gpgrunner_main
+    - bb-autolookup=bbarchivist.scripts.autolookup:grab_args
+    - bb-pseudocap=bbarchivist.scripts.pseudocap:pseudocap_main
+    - bb-sqlexport=bbarchivist.scripts.sqlexport:sqlexport_main
+    - bb-kompressor=bbarchivist.scripts.kompressor:kompressor_main
+    - bb-downloader=bbarchivist.scripts.downloader:grab_args
+    - bb-kernchecker=bbarchivist.scripts.kernchecker:kernchecker_main
+    - bb-cfp=bbarchivist.scripts.cfp:cfp_main
+    - bb-cap=bbarchivist.scripts.cap:cap_main
+    - bb-privlookup=bbarchivist.scripts.privlookup:grab_args
+
+  # If this is a new build for the same version, increment the build
+  # number. If you do not include this key, it defaults to 0.
+  # number: 1
+
+requirements:
+  build:
+    - python
+    - setuptools
+    - requests
+    - python-gnupg
+    - beautifulsoup4
+
+  run:
+    - python
+    - requests
+    - python-gnupg
+    - beautifulsoup4
+
+test:
+  # Python imports
+  imports:
+    - bbarchivist
+    - bbarchivist.scripts
+    - tests
+
+  commands:
+    # You can put test commands to be run here.  Use this to test that the
+    # entry points work.
+
+    - bb-archivist --help
+    - bb-lazyloader --help
+    - bb-cchecker --help
+    - bb-certchecker --help
+    - bb-filehasher --help
+    - bb-escreens --help
+    - bb-linkgen --help
+    - bb-gpgrunner --help
+    - bb-autolookup --help
+    - bb-pseudocap --help
+    - bb-sqlexport --help
+    - bb-kompressor --help
+    - bb-downloader --help
+    - bb-kernchecker --help
+    - bb-cfp --help
+    - bb-cap --help
+    - bb-privlookup --help
+
+  # You can also put a file called run_test.py in the recipe that will be run
+  # at test time.
+
+  # requires:
+    # Put any additional test requirements here.  For example
+    # - nose
+
+about:
+  home: http://github.com/thurask/bbarchivist
+  license: WTFPL v2
+  summary: 'BlackBerry autoloader tools'
+
+# See
+# http://docs.continuum.io/conda/build.html for
+# more information about meta.yaml
